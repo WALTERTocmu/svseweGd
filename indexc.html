@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animación de Flores y Carta</title>
+    <style>
+        body {
+            background-color: #ffebf0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        .card h1 {
+            color: #d63384;
+        }
+        .card p {
+            color: #333;
+        }
+        .proposal-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            display: none;
+            position: relative;
+            transform: scale(0);
+            transition: transform 0.5s ease-in-out;
+        }
+        .ring-box {
+            width: 100px;
+            height: 100px;
+            background: brown;
+            border-radius: 10px;
+            position: relative;
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: bottom;
+            transform: rotateX(90deg);
+            transition: transform 0.5s ease-in-out 0.5s;
+        }
+        .ring {
+            width: 40px;
+            height: 40px;
+            border: 5px solid gold;
+            border-radius: 50%;
+            box-shadow: 0 0 10px gold;
+        }
+        .proposal-box button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>FELIZ VIERNES 7 DE FEBRERO</h1>
+        <p>CUMPLIMOS 3 MESES DE CASADOS</p>
+        <p>LA VRDD TE AMO MUCHO</p>
+        <p>Desde el primer día que nos casamos, mi amor por ti no ha hecho más que crecer. Gracias por estos hermosos tres meses. ¡Por muchos más juntos!</p>
+    </div>
+    
+    <div class="proposal-box" id="proposal">
+        <p>¿Te gustaría casarte conmigo nuevamente y renovar nuestros votos?</p>
+        <div class="ring-box" id="ringBox">
+            <div class="ring"></div>
+        </div>
+        <button onclick="alert('¡Sí! ¡Acepto! Te amo.')">Sí, acepto</button>
+    </div>
+    
+    <button onclick="openProposal()">Tengo algo que preguntarte</button>
+    
+    <div class="container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        const container = document.querySelector(".container");
+
+        function createFlower() {
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            container.appendChild(flower);
+            
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            
+            gsap.set(flower, { x, y, scale: Math.random() * 1.5 + 0.5, opacity: 0 });
+            
+            gsap.to(flower, {
+                y: y - 100,
+                opacity: 1,
+                duration: 2 + Math.random() * 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        }
+
+        for (let i = 0; i < 20; i++) {
+            createFlower();
+        }
+
+        function openProposal() {
+            const proposal = document.getElementById('proposal');
+            const ringBox = document.getElementById('ringBox');
+            proposal.style.display = 'block';
+            setTimeout(() => {
+                proposal.style.transform = 'scale(1)';
+                ringBox.style.transform = 'rotateX(0deg)';
+            }, 100);
+        }
+    </script>
+</body>
+</html>
